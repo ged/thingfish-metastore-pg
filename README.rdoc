@@ -1,0 +1,226 @@
+= Strelka (Стрелка)
+
+home :: http://deveiate.org/projects/Strelka
+code :: http://bitbucket.org/ged/Strelka
+github :: https://github.com/ged/strelka
+docs :: http://deveiate.org/code/strelka
+
+
+== Description
+
+Strelka is a framework for creating and deploying
+Mongrel2[http://mongrel2.org/] web applications in Ruby.
+
+It's named after a lesser known {Russian
+cosmonaut}[http://en.wikipedia.org/wiki/Strelka_(dog)#Belka_and_Strelka] who was
+one of the first canine space travelers to orbit the Earth and return alive.
+Her name means "little arrow".
+
+
+== Prerequisites
+
+* Mongrel2[http://mongrel2.org/] 1.8.0 or better
+* Ruby 1.9.3 or better
+
+
+== Installation
+
+    $ gem install strelka
+
+
+== Getting Started
+
+We're going to assume you've already built and installed the Mongrel2 daemon.
+If not, please refer to the  {Mongrel2
+documentation}[http://mongrel2.org/wiki/quick_start.html] and get that  ready.
+
+Mongrel2 loads its configuration from a SQLite database. You can create the 
+this database in any fashion you like, but the Mongrel2 ruby module includes a
+command-line tool called <tt>m2sh.rb</tt> that'll let you quickstart a server
+if you just want to experiment. If you've already installed the *strelka* gem,
+then it will already have been installed as a dependency.
+
+To bootstrap a basic server, configure it, and run it:
+
+    $ mkdir strelka-tryout
+    $ cd !$
+    $ m2sh.rb quickstart
+
+This will generate a Ruby DSL config, then invoke an editor on it.
+
+Make sure the config has a line like:
+
+    route '/hello', handler( 'tcp://127.0.0.1:9999',  'helloworld' )
+
+in the 'host' section; that's the part of the Mongrel2 server we'll be talking
+to.
+
+The quickstart will generate a SQLite configuration database for use with
+Mongrel2 in your current working directory, with the default required directory
+structure. Mongrel2 will listen on port 8113 (unless you changed it), and send
+all requests starting at the URI <tt>/hello</tt> to a handler called
+<tt>helloworld</tt>.
+
+If you stop the server (Ctrl-C will do so), you can restart it like so:
+
+    $ m2sh.rb start
+
+Now that the Mongrel2 daemon is up and running, we can move forward and create
+our first application!
+
+
+
+=== A Minimal Application
+
+Strelka applications are subclasses of the Strelka::App class. Strelka::App is
+pretty minimal by itself; it inherits most of its behavior from the basic
+Mongrel2::Handler[http://deveiate.org/code/mongrel2/Mongrel2/Handler.html]
+class, only adding a few convenience methods for common HTTP tasks.
+
+A minimal application would look something like:
+
+    #!/usr/bin/env ruby
+
+    require 'strelka'
+
+    class HelloWorldApp < Strelka::App
+
+        def handle_request( request )
+            response = request.response
+            response.content_type = 'text/plain'
+            response.puts( "Hello, World!" )
+            return response
+        end
+
+    end # class HelloWorldApp
+
+    # Run the app
+    HelloWorldApp.run if __FILE__ == $0
+
+While functional, this application is pretty dumb, and making it do anything
+more intelligent on your own would require a bunch of additional code and
+accompanying tests.  Fortunately, Strelka already has done the heavy lifting.
+It knows how to read the Mongrel2 configuration and hook your app up with the
+right sockets to talk to the Mongrel2 front end (providing you follow one of
+several simple conventions), provides hooks into the lifecycle of an HTTP
+request, and includes a plugin system that uses these hooks to handle common
+application tasks. This allows you to mix in the specific framework parts you
+need, so you get exactly what you want and nothing more.
+
+
+=== Talking to Mongrel2
+
+Mongrel2 associates handlers with itself via an identifier, which is described
+in the Mongrel2 manual as a UUID, but can actually be any string consisting of
+dashes and alphanumeric characters. Strelka reads the Mongrel2 config database,
+and can automatically configure its apps to talk to the right socket with the
+right <tt>send_ident</tt> if it can find them. It gives you a couple of
+different ways of doing this. It will default to a string derived from the name
+of the class, or you can set it yourself by declaring an <tt>ID</tt> constant
+in your application class. If you need more control, you can also override the
+<tt>::run</tt> class method and <tt>super</tt> with the right <tt>appid</tt>:
+
+    class HelloWorldApp
+        # Run as a tester if not running in the production environment
+        def self::run
+            appid = if Socket.gethostname.include?( 'test' )
+                    'helloworld-test'
+                else
+                    'helloworld'
+                end
+
+            super( appid )
+        end
+    end
+
+Because our <tt>config.sqlite</tt> configuration directs requests to <tt>/</tt>
+to be sent to the <tt>helloworldapp</tt> handler, Strelka will automatically
+find and pair this route to Mongrel2 when run.
+
+Run this handler, then point a browser to <tt>http://localhost:8080/</tt>.  If
+you see the text "Hello, World!", congrats!  We'll build off of this in the
+next section, the {Strelka Tutorial}[rdoc-ref:Tutorial.rdoc].
+
+
+== Further Reading
+
+You'll likely want to start with {the Tutorial}[rdoc-ref:Tutorial.rdoc].
+
+
+== Roadmap
+
+Going forward, we're going to be extracting useful stuff out of our own
+applications as plugins, and finishing up the packaging and deployment
+stories once we've ironed out the details in own environment.
+
+Here's a tentative list of what kinds of stuff we have planned:
+
+=== More Plugins
+
+* CORS -- manage {Cross-Origin Resource Sharing}[http://www.html5rocks.com/en/tutorials/cors/]
+  headers, especially for service applications
+* caching -- utilities for easy HTTP caching
+
+=== Deployment/Packaging
+
+You'll be able to package up your applications as Rubygems for easy deployment.
+The Strelka::App class already supports application discovery, but we
+want to hook that up to the 'strelka' command line tool so you can install
+and run them with a minimum of manual monkeying around with directories,
+migrations, etc.
+
+=== New Application Styles
+
+Create some new handler classes for different application styles, similar to
+those in the Tir[http://tir.mongrel2.org/] framework.
+
+=== Chunked Encoding
+
+Support for sending partial responses via the Chunked encoding.
+
+
+== Contributing
+
+You can check out the current development source with Mercurial via its
+{project page}[http://bitbucket.org/ged/Strelka]. Or if you prefer Git, via 
+{its Github mirror}[https://github.com/ged/strelka].
+
+After checking out the source, run:
+
+    $ rake newb
+
+This task will install any missing dependencies, run the tests/specs,
+and generate the API documentation.
+
+
+== License
+
+Copyright (c) 2011-2013, Michael Granger and Mahlon E. Smith
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the author/s, nor the names of the project's
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
