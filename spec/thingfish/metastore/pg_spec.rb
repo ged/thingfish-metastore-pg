@@ -4,11 +4,13 @@
 require_relative '../../spec_helper'
 
 require 'rspec'
+
+require 'thingfish/behaviors'
 require 'thingfish/metastore/pg'
 
-describe Thingfish::Metastore::Pg do
+describe Thingfish::Metastore::PG, db: true do
 
-	
+	it_should_behave_like "a Thingfish metastore"
 
 end
 
