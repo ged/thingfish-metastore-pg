@@ -10,10 +10,9 @@ class Initial < Sequel::Migration
 			uuid        :oid,           primary_key: true
 			text        :format,        null: false
 			int         :extent,        null: false
-			timestamptz :created,       null: false
+			timestamptz :created,       null: false, default: Sequel.function(:now)
 			inet        :uploadaddress, null: false
-			json        :metadata,      null: false, default: '{}'
-#			jsonb :metadata
+			jsonb       :user_metadata, null: false, default: '{}'
 		end
 	end
 
