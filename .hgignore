@@ -4,3 +4,4 @@ coverage/
 \.yml$
 \.sqlite$
 ChangeLog
+pkg/
