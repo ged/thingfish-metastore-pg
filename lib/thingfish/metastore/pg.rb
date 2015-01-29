@@ -194,9 +194,7 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 		ds = self.apply_search_direction( ds, options )
 		ds = self.apply_search_limit( ds, options )
 
-		return Enumerator::Lazy.new( ds, ds.count ) do |yielder, row|
-			yielder << row[:oid]
-		end
+		return ds.map {|row| row[:oid] }
 	end
 
 
