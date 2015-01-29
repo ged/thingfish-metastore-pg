@@ -79,7 +79,7 @@ class Thingfish::Metastore::PG::Metadata < Sequel::Model( :thingfish__metadata )
 		md.format        = metadata.delete( 'format' )
 		md.extent        = metadata.delete( 'extent' )
 		md.created       = metadata.delete( 'created' )
-		md.uploadaddress = metadata.delete( 'uploadaddress' )
+		md.uploadaddress = metadata.delete( 'uploadaddress' ).to_s
 
 		md.user_metadata = Sequel.pg_jsonb( metadata )
 
