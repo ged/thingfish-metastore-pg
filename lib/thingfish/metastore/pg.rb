@@ -268,7 +268,11 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	### Apply the search :order from the specified +options+ to the collection in
 	### +ds+ and return the modified dataset.
 	def apply_search_order( ds, options )
-		ds = ds.order( options[:order] ) if options[:order]
+		if options[:order]
+			columns = Array( options[:order] )
+			ds = ds.order( columns.map(&:to_sym) )
+		end
+
 		return ds
 	end
 
