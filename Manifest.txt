@@ -1,0 +1,12 @@
+.document
+.simplecov
+ChangeLog
+History.rdoc
+LICENSE.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+data/thingfish-metastore-pg/migrations/20150114_initial.rb
+lib/thingfish/metastore/pg.rb
+spec/spec_helper.rb
+spec/thingfish/metastore/pg_spec.rb

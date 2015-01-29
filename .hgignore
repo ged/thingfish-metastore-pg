@@ -1,3 +1,6 @@
 coverage/
 \.esproj/
 \.yml$
+\.yml$
+\.sqlite$
+ChangeLog
