@@ -66,18 +66,6 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	singleton_attr_accessor :slow_query_seconds
 
 
-	### Configurability API -- set up the metastore with the `pg_metastore` section of
-	### the config file.
-	def self::configure( config=nil )
-		config = self.defaults.merge( config || {} )
-
-		self.uri                = config[:uri]
-		self.slow_query_seconds = config[:slow_query_seconds]
-
-		self.setup_database
-	end
-
-
 	### Set up the metastore database and migrate to the latest version.
 	def self::setup_database
 		Sequel.extension :pg_json_ops
@@ -108,6 +96,18 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	### Return the current database migrations directory as a Pathname
 	def self::migrations_dir
 		return DATADIR + 'migrations'
+	end
+
+
+	### Configurability API -- set up the metastore with the `pg_metastore` section of
+	### the config file.
+	def self::configure( config=nil )
+		config = self.defaults.merge( config || {} )
+
+		self.uri                = config[:uri]
+		self.slow_query_seconds = config[:slow_query_seconds]
+
+		self.setup_database
 	end
 
 
