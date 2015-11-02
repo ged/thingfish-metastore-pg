@@ -176,7 +176,7 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 
 
 	### Fetch UUIDs related to the given +oid+.
-	def fetch_related_uuids( oid )
+	def fetch_related_oids( oid )
 		oid = normalize_oid( oid )
 		return self.model.related_to( oid ).select_map( :oid )
 	end
