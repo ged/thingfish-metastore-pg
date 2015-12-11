@@ -171,7 +171,8 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	### specified +oid+.
 	def fetch_value( oid, key )
 		metadata = self.model[ oid ] or return nil
-		return metadata.send( key )
+		key = key.to_sym
+		return metadata[ key ] || metadata.user_metadata[ key ]
 	end
 
 
