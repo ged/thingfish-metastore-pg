@@ -195,6 +195,8 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 		ds = self.apply_search_direction( ds, options )
 		ds = self.apply_search_limit( ds, options )
 
+		self.log.debug "Dataset for search is: %s" % [ ds.sql ]
+
 		return ds.map {|row| row[:oid] }
 	end
 
@@ -271,7 +273,8 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	def apply_search_order( ds, options )
 		if options[:order]
 			columns = Array( options[:order] )
-			ds = ds.order( columns.map(&:to_sym) )
+			self.log.debug "  ordering results by columns: %p" % [ columns ]
+			ds = ds.order_metadata( columns )
 		end
 
 		return ds
