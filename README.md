@@ -48,7 +48,7 @@ When Thingfish starts, it will install the necessary database schema automatical
 
 ## License
 
-Copyright (c) 2014-2015, Michael Granger and Mahlon E. Smith.
+Copyright (c) 2014-2016, Michael Granger and Mahlon E. Smith.
 
 All rights reserved.
 

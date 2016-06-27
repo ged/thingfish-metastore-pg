@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: thingfish-metastore-pg 0.1.0.pre20160627111909 ruby lib
+# stub: thingfish-metastore-pg 0.1.0.pre20160627113019 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "thingfish-metastore-pg"
-  s.version = "0.1.0.pre20160627111909"
+  s.version = "0.1.0.pre20160627113019"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.date = "2016-06-27"
   s.description = "This is a metadata storage plugin for the Thingfish digital asset manager. It provides persistent storage for uploaded data to a PostgreSQL table."
   s.email = ["ged@FaerieMUD.org", "mahlon@martini.nu"]
-  s.extra_rdoc_files = ["History.rdoc", "LICENSE.rdoc", "Manifest.txt", "README.rdoc", "LICENSE.rdoc", "History.md", "README.md"]
-  s.files = [".document", ".simplecov", "ChangeLog", "History.md", "History.rdoc", "LICENSE.rdoc", "Manifest.txt", "README.md", "README.rdoc", "Rakefile", "data/thingfish-metastore-pg/migrations/20150114_initial.rb", "lib/thingfish/metastore/pg.rb", "spec/spec_helper.rb", "spec/thingfish/metastore/pg_spec.rb"]
+  s.extra_rdoc_files = ["History.md", "LICENSE.md", "Manifest.txt", "README.md", "History.md", "LICENSE.md", "README.md"]
+  s.files = [".document", ".simplecov", "ChangeLog", "History.md", "LICENSE.md", "Manifest.txt", "README.md", "Rakefile", "data/thingfish-metastore-pg/migrations/20150114_initial.rb", "lib/thingfish/metastore/pg.rb", "lib/thingfish/metastore/pg/metadata.rb", "spec/spec_helper.rb", "spec/thingfish/metastore/pg_spec.rb"]
   s.homepage = "https://bitbucket.org/ged/thingfish-metastore-pg"
   s.licenses = ["BSD-3-Clause"]
   s.rdoc_options = ["--main", "README.md"]

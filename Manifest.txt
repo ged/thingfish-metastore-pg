@@ -1,12 +1,13 @@
 .document
 .simplecov
 ChangeLog
-History.rdoc
-LICENSE.rdoc
+History.md
+LICENSE.md
 Manifest.txt
-README.rdoc
+README.md
 Rakefile
 data/thingfish-metastore-pg/migrations/20150114_initial.rb
 lib/thingfish/metastore/pg.rb
+lib/thingfish/metastore/pg/metadata.rb
 spec/spec_helper.rb
 spec/thingfish/metastore/pg_spec.rb
