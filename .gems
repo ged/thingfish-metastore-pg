@@ -1,6 +1,6 @@
-hoe-deveiate -v0.3.0
-pg -v0.18.1
-pluggability -v0.4.0
-sequel -v4.18.0
-sequel_pg -v1.6.11
-strelka -v0.9.0
+hoe-deveiate -v"~> 0.3"
+pg -v"~> 0.18"
+pluggability -v"~> 0.4"
+sequel -v"~> 4.18"
+sequel_pg -v"~> 1.6"
+strelka -v"~> 0.9"
