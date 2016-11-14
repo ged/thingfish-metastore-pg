@@ -36,9 +36,10 @@ hoespec = Hoe.spec 'thingfish-metastore-pg' do |spec|
 	spec.dependency 'loggability', '~> 0.10'
 	spec.dependency 'configurability', '~> 2.2'
 	spec.dependency 'sequel', '~> 4.35'
-	spec.dependency 'pg', '~> 0.18'
+	spec.dependency 'pg', '~> 0.19'
 
-	spec.dependency 'rspec', '~> 3.0', :developer
+	spec.dependency 'hoe-deveiate', '~> 0.8',  :development
+	spec.dependency 'simplecov',    '~> 0.12',  :development
 
 	spec.require_ruby_version( '>=2.3.0' )
 	spec.hg_sign_tags = true if spec.respond_to?( :hg_sign_tags= )
