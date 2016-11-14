@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: thingfish-metastore-pg 0.2.0.pre20161114094927 ruby lib
+# stub: thingfish-metastore-pg 0.2.0.pre20161114095117 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "thingfish-metastore-pg"
-  s.version = "0.2.0.pre20161114094927"
+  s.version = "0.2.0.pre20161114095117"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
