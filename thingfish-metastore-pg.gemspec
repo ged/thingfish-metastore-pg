@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: thingfish-metastore-pg 0.1.0.pre20161114094615 ruby lib
+# stub: thingfish-metastore-pg 0.2.0.pre20161114094927 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "thingfish-metastore-pg"
-  s.version = "0.1.0.pre20161114094615"
+  s.version = "0.2.0.pre20161114094927"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<thingfish>, ["~> 0.5"])
-      s.add_runtime_dependency(%q<loggability>, ["~> 0.10"])
+      s.add_runtime_dependency(%q<loggability>, ["~> 0.11"])
       s.add_runtime_dependency(%q<configurability>, ["~> 2.2"])
       s.add_runtime_dependency(%q<sequel>, ["~> 4.35"])
       s.add_runtime_dependency(%q<pg>, ["~> 0.19"])
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<hoe>, ["~> 3.15"])
     else
       s.add_dependency(%q<thingfish>, ["~> 0.5"])
-      s.add_dependency(%q<loggability>, ["~> 0.10"])
+      s.add_dependency(%q<loggability>, ["~> 0.11"])
       s.add_dependency(%q<configurability>, ["~> 2.2"])
       s.add_dependency(%q<sequel>, ["~> 4.35"])
       s.add_dependency(%q<pg>, ["~> 0.19"])
@@ -51,7 +51,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<thingfish>, ["~> 0.5"])
-    s.add_dependency(%q<loggability>, ["~> 0.10"])
+    s.add_dependency(%q<loggability>, ["~> 0.11"])
     s.add_dependency(%q<configurability>, ["~> 2.2"])
     s.add_dependency(%q<sequel>, ["~> 4.35"])
     s.add_dependency(%q<pg>, ["~> 0.19"])

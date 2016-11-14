@@ -33,7 +33,7 @@ hoespec = Hoe.spec 'thingfish-metastore-pg' do |spec|
 	spec.developer 'Mahlon E. Smith', 'mahlon@martini.nu'
 
 	spec.dependency 'thingfish', '~> 0.5'
-	spec.dependency 'loggability', '~> 0.10'
+	spec.dependency 'loggability', '~> 0.11'
 	spec.dependency 'configurability', '~> 2.2'
 	spec.dependency 'sequel', '~> 4.35'
 	spec.dependency 'pg', '~> 0.19'
