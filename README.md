@@ -38,11 +38,11 @@ behaviors.
 
 Here's an example configuration file that enables this plugin.
 
-	---
-	thingfish:
-	  metastore: pg
-		pg_metastore:
-		  uri: postgres://thingfish:password@db.example.com/database
+    ---
+    thingfish:
+      metastore: pg
+      pg_metastore:
+        uri: postgres://thingfish:password@db.example.com/database
 
 
 When Thingfish starts, it will install the necessary database schema
