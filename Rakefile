@@ -31,10 +31,10 @@ hoespec = Hoe.spec 'thingfish-metastore-pg' do |spec|
 	spec.developer 'Michael Granger', 'ged@FaerieMUD.org'
 	spec.developer 'Mahlon E. Smith', 'mahlon@martini.nu'
 
-	spec.dependency 'thingfish', '~> 0.5'
-	spec.dependency 'loggability', '~> 0.11'
-	spec.dependency 'configurability', '~> 2.2'
-	spec.dependency 'sequel', '~> 4.35'
+	spec.dependency 'thingfish', '~> 0.6'
+	spec.dependency 'loggability', '~> 0.12'
+	spec.dependency 'configurability', '~> 3.1'
+	spec.dependency 'sequel', '~> 4.41'
 	spec.dependency 'pg', '~> 0.19'
 
 	spec.dependency 'hoe-deveiate', '~> 0.8',  :development
@@ -80,7 +80,7 @@ end
 
 task :gemspec => GEMSPEC
 file GEMSPEC => [ __FILE__, 'ChangeLog' ] do |task|
-	spec = $hoespec.spec
+	spec = hoespec.spec.dup
 	spec.files.delete( '.gemtest' )
 	spec.signing_key = nil
 	spec.version = "#{spec.version.bump}.0.pre#{Time.now.strftime("%Y%m%d%H%M%S")}"

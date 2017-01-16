@@ -24,13 +24,12 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 
 
 	# Package version
-	VERSION = '0.1.1'
+	VERSION = '0.2.0'
 
 	# Version control revision
 	REVISION = %q$Revision$
 
 	# The data directory that contains migration files.
-	#
 	DATADIR = if ENV['THINGFISH_METASTORE_PG_DATADIR']
 			Pathname.new( ENV['THINGFISH_METASTORE_PG_DATADIR'] )
 		elsif Gem.datadir( 'thingfish-metastore-pg' )
@@ -40,30 +39,27 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 				'data' + 'thingfish-metastore-pg'
 		end
 
-	# The default config values
-	DEFAULT_CONFIG = {
-		uri: 'postgres:/thingfish',
-		slow_query_seconds: 0.01,
-	}
-
 
 	# Loggability API -- use a separate logger
 	log_as :thingfish_metastore_pg
 
-	# Configurability API -- load the `pg_metastore`
-	config_key :pg_metastore
+	# Configurability API -- add settings and defaults for the pg metastore
+	configurability( 'thingfish.pg_metastore' ) do
 
-	##
-	# The URI of the database to use for the metastore
-	singleton_attr_accessor :uri
+		##
+		# The URI of the database to use for the metastore
+		setting :uri, default: 'postgres:/thingfish'
+
+		##
+		# The number of seconds to consider a "slow" query
+		setting :slow_query_seconds, default: 0.01
+
+	end
+
 
 	##
 	# The Sequel::Database that's used to access the metastore tables
 	singleton_attr_accessor :db
-
-	##
-	# The number of seconds to consider a "slow" query
-	singleton_attr_accessor :slow_query_seconds
 
 
 	### Set up the metastore database and migrate to the latest version.
@@ -102,12 +98,8 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	### Configurability API -- set up the metastore with the `pg_metastore` section of
 	### the config file.
 	def self::configure( config=nil )
-		config = self.defaults.merge( config || {} )
-
-		self.uri                = config[:uri]
-		self.slow_query_seconds = config[:slow_query_seconds]
-
-		self.setup_database
+		super
+		self.setup_database if self.uri
 	end
 
 
