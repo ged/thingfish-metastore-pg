@@ -41,9 +41,8 @@ Here's an example configuration file that enables this plugin.
 	---
 	thingfish:
 	  metastore: pg
-
-	pg_metastore:
-	  uri: postgres://thingfish:password@db.example.com/database
+		pg_metastore:
+		  uri: postgres://thingfish:password@db.example.com/database
 
 
 When Thingfish starts, it will install the necessary database schema
@@ -52,7 +51,7 @@ automatically.
 
 ## License
 
-Copyright (c) 2014-2016, Michael Granger and Mahlon E. Smith.
+Copyright (c) 2014-2017, Michael Granger and Mahlon E. Smith.
 
 All rights reserved.
 
