@@ -293,5 +293,11 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 		return ds
 	end
 
+
+	# Register a hook to make the database connection fork-safe.
+	Strelka.before_fork do
+		self.db&.disconnect
+	end
+
 end # class Thingfish::Metastore::PG
 
