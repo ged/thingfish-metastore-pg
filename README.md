@@ -1,10 +1,10 @@
 # Thingfish PostgreSQL Metastore
 
 home
-: https://bitbucket.org/projects/thingfish-metastore-pg
+: https://hg.sr.ht/~ged/thingfish-metastore-pg
 
 code
-: https://bitbucket.org/ged/thingfish-metastore-pg
+: https://hg.sr.ht/~ged/thingfish-metastore-pg
 
 github
 : https://github.com/ged/thingfish-metastore-pg
@@ -51,7 +51,7 @@ automatically.
 
 ## License
 
-Copyright (c) 2014-2017, Michael Granger and Mahlon E. Smith.
+Copyright (c) 2014-2020, Michael Granger and Mahlon E. Smith.
 
 All rights reserved.
 

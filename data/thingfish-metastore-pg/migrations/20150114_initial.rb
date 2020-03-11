@@ -6,7 +6,7 @@ class Initial < Sequel::Migration
 
 	def up
 		create_schema( :thingfish, if_not_exists: true )
-		create_table( :thingfish__metadata ) do
+		create_table( :metadata ) do
 			uuid        :oid,           primary_key: true
 			text        :format,        null: false
 			int         :extent,        null: false
@@ -17,7 +17,7 @@ class Initial < Sequel::Migration
 	end
 
 	def down
-		drop_table( :thingfish__metadata )
+		drop_table( :metadata )
 	end
 end
 

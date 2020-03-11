@@ -7,7 +7,6 @@ require 'thingfish/mixins'
 require 'thingfish/metastore/pg' unless defined?( Thingfish::Metastore::PG )
 
 
-
 # A row of metadata describing an asset in a Thingfish store.
 class Thingfish::Metastore::PG::Metadata < Sequel::Model( :metadata )
 	include Thingfish::Normalization
@@ -148,6 +147,7 @@ class Thingfish::Metastore::PG::Metadata < Sequel::Model( :metadata )
 
 	### Proxy method -- fetch a value from the metadata hash if it exists.
 	def method_missing( sym, *args, &block )
+		return super if sym == :user_metadata
 		return self.user_metadata[ sym.to_s ] || super
 	end
 

@@ -40,6 +40,9 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 		end
 
 
+	autoload :Metadata, 'thingfish/metastore/pg/metadata'
+
+
 	# Loggability API -- use a separate logger
 	log_as :thingfish_metastore_pg
 
@@ -65,8 +68,8 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	### Set up the metastore database and migrate to the latest version.
 	def self::setup_database
 		Sequel.extension :pg_json_ops
+		Sequel::Model.require_valid_table = false
 
-		# self.db = Sequel.connect( self.uri )
 		self.db = Sequel.connect( self.uri )
 
 		self.db.logger = Loggability[ Thingfish::Metastore::PG ]
@@ -111,8 +114,7 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 
 	### Set up the metastore.
 	def initialize( * ) # :notnew:
-		require 'thingfish/metastore/pg/metadata'
-		Thingfish::Metastore::PG::Metadata.db = self.class.db
+		Thingfish::Metastore::PG::Metadata.dataset = self.class.db[:metadata]
 		@model = Thingfish::Metastore::PG::Metadata
 	end
 

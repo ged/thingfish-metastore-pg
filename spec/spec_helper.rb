@@ -49,6 +49,8 @@ module Thingfish::MetastorePGSpecHelpers
 		context.before( :all ) do
 			if ((db_uri = ENV[ TESTDB_ENV_VAR ]))
 				Thingfish::Metastore::PG.configure( uri: db_uri )
+				# Loggability.format_with( :color )
+				# Loggability.level = :debug
 			end
 		end
 
@@ -90,20 +92,30 @@ end # module Thingfish::Metastore::PG::SpecHelpers
 
 
 ### Mock with RSpec
-RSpec.configure do |c|
+RSpec.configure do |config|
 	include Thingfish::SpecHelpers
 	include Thingfish::SpecHelpers::Constants
 
-	c.run_all_when_everything_filtered = true
-	c.filter_run :focus
-	# c.order = 'random'
-	c.mock_with( :rspec ) do |mock|
-		mock.syntax = :expect
+	config.expect_with :rspec do |expectations|
+		expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+		expectations.syntax = :expect
 	end
 
-	c.include( Loggability::SpecHelpers )
-	c.include( Thingfish::SpecHelpers )
-	c.include( Thingfish::MetastorePGSpecHelpers )
+	config.mock_with :rspec do |mocks|
+		mocks.verify_partial_doubles = true
+	end
+
+	config.run_all_when_everything_filtered = true
+	config.filter_run_when_matching :focus
+	config.order = :random
+	config.example_status_persistence_file_path = 'spec/.state'
+	config.disable_monkey_patching!
+	# config.warnings = true # Sequel is too noisy
+	config.profile_examples = 5
+
+	config.include( Loggability::SpecHelpers )
+	config.include( Thingfish::SpecHelpers )
+	config.include( Thingfish::MetastorePGSpecHelpers )
 end
 
 # vim: set nosta noet ts=4 sw=4:

@@ -1,6 +1,5 @@
 .document
 .simplecov
-ChangeLog
 History.md
 LICENSE.md
 Manifest.txt
