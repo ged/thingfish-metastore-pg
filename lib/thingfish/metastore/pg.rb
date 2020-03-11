@@ -1,5 +1,5 @@
 # -*- ruby -*-
-#encoding: utf-8
+# frozen_string_literal: true
 
 require 'loggability'
 require 'configurability'
@@ -66,11 +66,17 @@ class Thingfish::Metastore::PG < Thingfish::Metastore
 	def self::setup_database
 		Sequel.extension :pg_json_ops
 
+		# self.db = Sequel.connect( self.uri )
 		self.db = Sequel.connect( self.uri )
 
 		self.db.logger = Loggability[ Thingfish::Metastore::PG ]
 		self.db.sql_log_level = :debug
-		self.db.extension( :pg_json )
+		self.db.log_warn_duration = self.slow_query_seconds
+
+		self.db.extension :pg_streaming
+		self.db.extension :pg_inet
+		self.db.extension :pg_json
+		self.db.stream_all_queries = true
 		self.db.log_warn_duration = self.slow_query_seconds
 
 		# Ensure the database is current.

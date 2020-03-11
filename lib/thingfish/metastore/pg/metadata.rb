@@ -1,5 +1,5 @@
 # -*- ruby -*-
-#encoding: utf-8
+# frozen_string_literal: true
 
 require 'sequel/model'
 
@@ -7,8 +7,9 @@ require 'thingfish/mixins'
 require 'thingfish/metastore/pg' unless defined?( Thingfish::Metastore::PG )
 
 
+
 # A row of metadata describing an asset in a Thingfish store.
-class Thingfish::Metastore::PG::Metadata < Sequel::Model( :thingfish__metadata )
+class Thingfish::Metastore::PG::Metadata < Sequel::Model( :metadata )
 	include Thingfish::Normalization
 
 	# Allow instances to be created with a primary key
