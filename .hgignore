@@ -2,7 +2,7 @@ coverage/
 doc/
 \.esproj/
 \.yml$
-\.yml$
+\.lock$
 \.sqlite$
 ChangeLog
 pkg/
